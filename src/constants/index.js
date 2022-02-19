@@ -1,0 +1,1 @@
+export { notesList } from './notesList';

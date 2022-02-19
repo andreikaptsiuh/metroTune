@@ -1,0 +1,42 @@
+.navBar_wrapper {
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #607d8b;
+
+  position: sticky;
+  top: 0;
+}
+.navBar {
+  width: 1000px;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #607d8b;
+}
+
+.navBar__list {
+  list-style-type: none;
+  display: flex;
+}
+
+.navBar__list_item > a {
+  display: flex;
+  text-decoration: none;
+  color: black;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.navBar__list_item.active > a {
+  color: white;
+}
+
+.navBar__list_item > a:hover {
+  color: rgb(187, 187, 187);
+}

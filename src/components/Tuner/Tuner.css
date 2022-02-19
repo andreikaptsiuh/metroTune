@@ -1,0 +1,34 @@
+.tuner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}
+
+.tuner_note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  width: 3em;
+  font-size: large;
+  color: black;
+}
+
+.tuner_note.tune {
+  color: green;
+}
+
+.tuner_note.not_tune {
+  color: red;
+}
+
+.tuner_indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15em;
+  height: 9em;
+  border-radius: 90%;
+  border-top: 2px solid black;
+}
