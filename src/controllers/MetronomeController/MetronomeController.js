@@ -64,7 +64,7 @@ export class MetronomeController {
   };
 
   stop = () => {
-    console.log('Metronome is stopped');
+    console.log('Metronome was stopped');
     this.play = false;
 
     if (this.source) {

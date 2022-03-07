@@ -23,12 +23,18 @@
   color: red;
 }
 
-.tuner_indicator {
+.tuner_indicator__wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 15em;
-  height: 9em;
-  border-radius: 90%;
+  width: 18em;
+  height: 2em;
   border-top: 2px solid black;
+  position: relative;
+}
+
+.tuner_indicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
 }

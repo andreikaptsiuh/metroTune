@@ -8,12 +8,14 @@ export class TunerController {
     this.dataArray = null;
     this.frequencyDataArray = null;
     this.noteElement = null;
+    this.indicatorElement = null;
 
     this.frequencyDifferenceCash = tuneNoteValue;
   }
 
-  start = (noteElement) => {
+  start = (noteElement, indicatorElement) => {
     this.noteElement = noteElement;
+    this.indicatorElement = indicatorElement;
 
     navigator.getUserMedia = this._getUserMedia();
     navigator.getUserMedia(
@@ -50,6 +52,7 @@ export class TunerController {
           Math.abs(frequency - peakFrequency);
 
           this._updateTuneState(frequencyDifference);
+          this._updateIndicatorState(frequency - peakFrequency);
         }
       });
     });
@@ -59,6 +62,10 @@ export class TunerController {
     } else {
       this.noteElement.innerHTML = '-';
     }
+  };
+
+  _updateIndicatorState = (frequencyDifference) => {
+    this.indicatorElement.style.left = 50 - frequencyDifference * 2 + '%';
   };
 
   _updateTuneState = (frequencyDifference) => {

@@ -4,13 +4,14 @@ import './Tuner.css';
 
 export const Tuner = () => {
   const noteRef = useRef(null);
+  const indicatorRef = useRef(null);
   const tunerController = useMemo(() => new TunerController(), []);
 
   useEffect(() => {
     if (!noteRef.current) return;
 
-    tunerController.start(noteRef.current);
-  }, [tunerController, noteRef]);
+    tunerController.start(noteRef.current, indicatorRef.current);
+  }, [tunerController, noteRef, indicatorRef]);
 
   return (
     <div className="tuner">
@@ -19,8 +20,10 @@ export const Tuner = () => {
         ref={noteRef}>
         -
       </div>
-      <div className="tuner_indicator">
-        indicator
+      <div className="tuner_indicator__wrapper">
+        <div ref={indicatorRef} className="tuner_indicator">
+          |
+        </div>
       </div>
     </div>
   )
