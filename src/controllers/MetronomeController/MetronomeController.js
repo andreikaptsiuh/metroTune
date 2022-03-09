@@ -1,11 +1,12 @@
 export class MetronomeController {
-  constructor(temp, soundType) {
+  constructor(temp, soundType, clickGain) {
     this.temp = temp;
     this.soundType = soundType;
+    this.clickGain = clickGain;
     this.play = false;
     this.source = null;
     this.audioCtx = null;
-  }
+  };
 
   setTemp = (newTemp) => {
     this.temp = newTemp;
@@ -15,6 +16,10 @@ export class MetronomeController {
     this.play = true;
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     this.source = this.audioCtx.createBufferSource();
+
+    const gainNode = this.audioCtx.createGain();
+    gainNode.gain.value = this.clickGain;
+    gainNode.gain.setValueAtTime(this.clickGain / 10, this.audioCtx.currentTime);
 
     const request = new XMLHttpRequest();
     request.open('GET', `./${this.soundType}_metronome.wav`, true);
@@ -26,6 +31,9 @@ export class MetronomeController {
       this.audioCtx.decodeAudioData(audioData, (buffer) => {
         this._bufferGenerator(buffer);
 
+        this.source.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+
         this.source.connect(this.audioCtx.destination);
         this.source.loop = true;
       });
@@ -33,6 +41,14 @@ export class MetronomeController {
 
     request.send();
     this.source.start();
+  };
+
+  stop = () => {
+    this.play = false;
+
+    if (this.source) {
+      this.source.stop();
+    }
   };
 
   _bufferGenerator = (buffer) => {
@@ -57,13 +73,5 @@ export class MetronomeController {
     }
 
     this.source.buffer = myArrayBuffer;
-  };
-
-  stop = () => {
-    this.play = false;
-
-    if (this.source) {
-      this.source.stop();
-    }
   };
 };

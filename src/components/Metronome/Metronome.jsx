@@ -7,11 +7,13 @@ import './Metronome.css';
 export const Metronome = () => {
   const [temp, setTemp] = useState(100);
   const [play, setPlay] = useState(false);
+
   const metronomeSoundType = localStorage.getItem('metronomeSoundType');
+  const metronomeClickGain = localStorage.getItem('metronomeClickGain');
 
   const metronomeController = useMemo(() => {
-    return new MetronomeController(temp, metronomeSoundType)
-  }, [temp, metronomeSoundType]); 
+    return new MetronomeController(temp, metronomeSoundType, +metronomeClickGain);
+  }, [metronomeSoundType, metronomeClickGain]); 
 
   const stopMetronomeHandler = () => {
     setPlay(false);

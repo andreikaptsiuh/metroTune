@@ -14,7 +14,7 @@ export const Input = ({ value, onChangeHandler, className, type = 'text', min, m
 
   const onChangeEventHandler = (event) => {
     const value = event.target.value;
-    if (type === 'number') {
+    if (type === 'number' || type === 'range') {
       numberInputHandler(+value);
     };
   };
