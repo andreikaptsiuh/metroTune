@@ -21,6 +21,11 @@ export const NavBar = () => {
               Tuner
             </Link>
           </li>
+          <li className={`navBar__list_item ${pathname === '/settings' ? 'active' : ''}`}>
+            <Link to='/settings'>
+              Settings
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

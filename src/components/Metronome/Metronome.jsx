@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { MetronomeController } from "../../controllers/MetronomeController";
 import { Button } from "../Button";
 import { Input } from "../Input";
@@ -7,7 +7,11 @@ import './Metronome.css';
 export const Metronome = () => {
   const [temp, setTemp] = useState(100);
   const [play, setPlay] = useState(false);
-  const metronomeController = useMemo(() => new MetronomeController(temp), [temp]); 
+  const metronomeSoundType = localStorage.getItem('metronomeSoundType');
+
+  const metronomeController = useMemo(() => {
+    return new MetronomeController(temp, metronomeSoundType)
+  }, [temp, metronomeSoundType]); 
 
   const stopMetronomeHandler = () => {
     setPlay(false);
@@ -47,6 +51,10 @@ export const Metronome = () => {
       metronomeController.start();
     }
   };
+
+  useEffect(() => {
+    return () => stopMetronomeHandler();
+  }, []);
 
   return (
       <div className="metronome__wrapper">

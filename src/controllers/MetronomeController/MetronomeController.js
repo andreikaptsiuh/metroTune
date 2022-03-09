@@ -1,6 +1,7 @@
 export class MetronomeController {
-  constructor(temp) {
+  constructor(temp, soundType) {
     this.temp = temp;
+    this.soundType = soundType;
     this.play = false;
     this.source = null;
     this.audioCtx = null;
@@ -11,16 +12,12 @@ export class MetronomeController {
   };
 
   start = () => {
-    console.log('Play with temp', this.temp);
-
     this.play = true;
-
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
     this.source = this.audioCtx.createBufferSource();
 
     const request = new XMLHttpRequest();
-    request.open('GET', './metronome.wav', true);
+    request.open('GET', `./${this.soundType}_metronome.wav`, true);
     request.responseType = 'arraybuffer';
 
     request.onload = () => {
@@ -35,7 +32,6 @@ export class MetronomeController {
     };
 
     request.send();
-
     this.source.start();
   };
 
@@ -64,11 +60,10 @@ export class MetronomeController {
   };
 
   stop = () => {
-    console.log('Metronome was stopped');
     this.play = false;
 
     if (this.source) {
       this.source.stop();
     }
   };
-}
+};
