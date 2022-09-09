@@ -8,7 +8,7 @@ export const NavBar = () => {
   return(
     <header className="navBar_wrapper">
       <nav className="navBar">
-        <h1>MetroTune</h1>
+        <h1 className="navBar__title">MetroTune</h1>
 
         <ul className="navBar__list">
           <li className={`navBar__list_item ${pathname === '/' ? 'active' : ''}`}>

@@ -1,15 +1,19 @@
-import React, { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { MetronomeController } from "../../controllers/MetronomeController";
+import { setTemp } from "../../store/metronomeReducer";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import './Metronome.css';
 
 export const Metronome = () => {
-  const [temp, setTemp] = useState(100);
   const [play, setPlay] = useState(false);
 
-  const metronomeSoundType = localStorage.getItem('metronomeSoundType');
-  const metronomeClickGain = localStorage.getItem('metronomeClickGain');
+  const temp = useSelector((state) => state.metronome.temp);
+  const metronomeSoundType = useSelector((state) => state.metronome.soundType);
+  const metronomeClickGain = useSelector((state) => state.metronome.clickGain);
+
+  const dispatch = useDispatch();
 
   const metronomeController = useMemo(() => {
     return new MetronomeController(temp, metronomeSoundType, +metronomeClickGain);
@@ -26,8 +30,8 @@ export const Metronome = () => {
     stopMetronomeHandler();
 
     const newTemp = temp - 1;
-    setTemp(newTemp);
     metronomeController.setTemp(newTemp);
+    dispatch(setTemp(newTemp));
   };
 
   const incrementTempHandler = () => {
@@ -35,14 +39,15 @@ export const Metronome = () => {
 
     stopMetronomeHandler();
   
-    const newTemp = temp + 1;
+    const newTemp = temp + 1; 
     metronomeController.setTemp(newTemp);
-    setTemp(newTemp);
+    dispatch(setTemp(newTemp));
   };
 
   const setTempFromInputHandler = (value) => {
     stopMetronomeHandler();
-    setTemp(value);
+    metronomeController.setTemp(value);
+    dispatch(setTemp(value));
   };
 
   const startStopMetronomePlay = () => {

@@ -1,24 +1,9 @@
-import React, { useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from './components/NavBar';
 import { MetronomePage, TunerPage, SettingsPage } from './pages';
 import './App.css';
-import { metronomeSoundTypes } from './constants/metronomeSoundTypes';
 
 export const App = () => {
-  useEffect(() => {
-    const metronomeSoundType = localStorage.getItem('metronomeSoundType');
-    const metronomeClickGain = localStorage.getItem('metronomeClickGain');
-
-    if (!metronomeSoundType) {
-      localStorage.setItem('metronomeSoundType', metronomeSoundTypes[0].value);
-    };
-
-    if (!metronomeClickGain) {
-      localStorage.setItem('metronomeClickGain', '7');
-    };
-  }, []);
-
   return (
     <div className='app'>
       <NavBar />

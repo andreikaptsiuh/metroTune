@@ -1,4 +1,3 @@
-import React from "react";
 import { Metronome } from "../../components/Metronome";
 import './MetronomePage.css';
 

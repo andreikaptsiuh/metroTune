@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { Input } from "../../components/Input";
 import { Select } from "../../components/Select";
 import { metronomeSoundTypes } from "../../constants/metronomeSoundTypes";
+import { setClickGain, setSoundType } from "../../store/metronomeReducer";
 import './SettingsPage.css';
 
 export const SettingsPage = () => {
-  const metronomeSoundType = localStorage.getItem('metronomeSoundType');
-  const metronomeClickGain = localStorage.getItem('metronomeClickGain');
+  const metronomeSoundType = useSelector((state) => state.metronome.soundType);
+  const metronomeClickGain = useSelector((state) => state.metronome.clickGain);
+
+  const dispatch = useDispatch();
 
   const [clickVolume, setClickVolume] = useState(+metronomeClickGain);
 
   const changeSoundType = (newSoundType) => {
-    localStorage.setItem('metronomeSoundType', newSoundType);
+    dispatch(setSoundType(newSoundType));
   };
 
   const changeClickVolume = (newVolume) => {
     setClickVolume(newVolume);
-    localStorage.setItem('metronomeClickGain', String(newVolume));
+    dispatch(setClickGain(newVolume));
   };
 
   return (
